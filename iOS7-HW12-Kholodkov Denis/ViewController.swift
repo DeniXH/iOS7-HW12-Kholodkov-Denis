@@ -6,14 +6,35 @@
 //
 
 import UIKit
+import SnapKit
 
 class ViewController: UIViewController {
 
+    private lazy var labelTimer: UILabel = {
+        let label = UILabel()
+        label.text = "00:00"
+        label.font = UIFont.systemFont(ofSize: 30)
+        return label
+    }()
+
+//MARK: Functions
+
     override func viewDidLoad() {
         super.viewDidLoad()
-        // Do any additional setup after loading the view.
+        setupHierarchy()
+        setConstraints()
     }
 
+    private func setupHierarchy() {
+        view.addSubview(labelTimer)
+    }
+
+    private func setConstraints() {
+        labelTimer.snp.makeConstraints { make in
+            make.top.equalTo(view.safeAreaLayoutGuide.snp.top).offset(200)
+            make.centerX.equalTo(view)
+        }
+    }
 
 }
 
