@@ -10,9 +10,13 @@ import SnapKit
 
 class ViewController: UIViewController {
 
+    var circlePaint: CirclePaint!
+
     private var isWorkTime = false
     private var isStarted = false
     var timer = Timer()
+
+    var settingTime = SettingTime()
     var time = Int()
     static let progressBarWidth: CGFloat = 300
 
@@ -54,12 +58,36 @@ class ViewController: UIViewController {
             isStarted = true
             startTimer()
             buttonPlay.setImage(UIImage(systemName: "pause"), for: .normal)
-// показатель движения
+            circlePaint.progressAnimation(duration: TimeInterval(time))
         } else {
             timer.invalidate()
-
+            if let presentation = circlePaint.progressLayer.presentation() {
+                circlePaint.progressLayer.strokeEnd = presentation.strokeEnd
+            }
+            circlePaint.progressLayer.removeAnimation(forKey: "progressAnimation")
         }
+    }
 
+    // MARK: - Change interface
+    func workTimeInterface() {
+        circlePaint.createCircularPath(toneColor: Colors.workColor)
+        buttonPlay.tintColor = UIColor(cgColor: Colors.workColor)
+    }
+
+    func restTimeInterface() {
+        circlePaint.createCircularPath(toneColor: Colors.restColor)
+        buttonPlay.tintColor = UIColor(cgColor: Colors.restColor)
+    }
+
+    func changeInterface() {
+        if isWorkTime {
+            restTimeInterface()
+            isWorkTime = false
+        } else {
+            workTimeInterface()
+            isWorkTime = true
+        }
+      resetTime()
     }
 
     func timeFormat() -> String {
@@ -68,8 +96,27 @@ class ViewController: UIViewController {
         return String(format: "%02i:%02i", min, sec)
     }
 
+    func isStartedCheck() {
+        if isStarted {
+            circlePaint.progressAnimation(duration: TimeInterval(time))
+        }
+    }
+
+    func resetTime() {
+        if isWorkTime {
+            time = settingTime.timeModel.timeToWork
+            circlePaint.createCircularPath(toneColor: Colors.workColor)
+            isStartedCheck()
+        } else {
+            time = settingTime.timeModel.timeToRest
+            circlePaint.createCircularPath(toneColor: Colors.restColor)
+            isStartedCheck()
+        }
+    }
+
     //MARK: Timer
     func startTimer() {
+        timer =
     }
     func updateTimer() {
     }
@@ -101,5 +148,23 @@ class ViewController: UIViewController {
 //        }
     }
 
+}
+
+struct TimeModel {
+    var timeToWork: Int = 1500
+    var timeToRest: Int = 300
+}
+
+class SettingTime {
+
+   var timeModel = TimeModel()
+
+    func setWorkTime(in time: Int) {
+        timeModel.timeToWork = time
+    }
+
+    func setRestTime(in time: Int) {
+        timeModel.timeToRest = time
+    }
 }
 
