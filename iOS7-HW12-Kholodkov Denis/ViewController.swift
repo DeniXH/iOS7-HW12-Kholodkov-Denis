@@ -14,6 +14,7 @@ class ViewController: UIViewController {
     private var isStarted = false
     var timer = Timer()
     var time = Int()
+    static let progressBarWidth: CGFloat = 300
 
     private lazy var labelTimer: UILabel = {
         let label = UILabel()

@@ -15,6 +15,8 @@
 		92269F3728B0FA4600042549 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 92269F3528B0FA4600042549 /* LaunchScreen.storyboard */; };
 		92269F4528B10A9300042549 /* SnapKit in Frameworks */ = {isa = PBXBuildFile; productRef = 92269F4428B10A9300042549 /* SnapKit */; };
 		92269F4928B13C2C00042549 /* Colors.swift in Sources */ = {isa = PBXBuildFile; fileRef = 92269F4828B13C2C00042549 /* Colors.swift */; };
+		92269F4D28B15C8300042549 /* Animation in Resources */ = {isa = PBXBuildFile; fileRef = 92269F4C28B15C8300042549 /* Animation */; };
+		92269F4F28B15D0D00042549 /* CirclePaint.swift in Sources */ = {isa = PBXBuildFile; fileRef = 92269F4E28B15D0D00042549 /* CirclePaint.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -27,6 +29,8 @@
 		92269F3628B0FA4600042549 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		92269F3828B0FA4600042549 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		92269F4828B13C2C00042549 /* Colors.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Colors.swift; sourceTree = "<group>"; };
+		92269F4C28B15C8300042549 /* Animation */ = {isa = PBXFileReference; lastKnownFileType = folder; path = Animation; sourceTree = "<group>"; };
+		92269F4E28B15D0D00042549 /* CirclePaint.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = CirclePaint.swift; path = Animation/CirclePaint.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -60,6 +64,7 @@
 		92269F2928B0FA4000042549 /* iOS7-HW12-Kholodkov Denis */ = {
 			isa = PBXGroup;
 			children = (
+				92269F4C28B15C8300042549 /* Animation */,
 				92269F2A28B0FA4000042549 /* AppDelegate.swift */,
 				92269F2C28B0FA4000042549 /* SceneDelegate.swift */,
 				92269F2E28B0FA4000042549 /* ViewController.swift */,
@@ -68,6 +73,7 @@
 				92269F3528B0FA4600042549 /* LaunchScreen.storyboard */,
 				92269F3828B0FA4600042549 /* Info.plist */,
 				92269F4828B13C2C00042549 /* Colors.swift */,
+				92269F4E28B15D0D00042549 /* CirclePaint.swift */,
 			);
 			path = "iOS7-HW12-Kholodkov Denis";
 			sourceTree = "<group>";
@@ -137,6 +143,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				92269F3728B0FA4600042549 /* LaunchScreen.storyboard in Resources */,
+				92269F4D28B15C8300042549 /* Animation in Resources */,
 				92269F3428B0FA4500042549 /* Assets.xcassets in Resources */,
 				92269F3228B0FA4000042549 /* Main.storyboard in Resources */,
 			);
@@ -152,6 +159,7 @@
 				92269F2F28B0FA4000042549 /* ViewController.swift in Sources */,
 				92269F4928B13C2C00042549 /* Colors.swift in Sources */,
 				92269F2B28B0FA4000042549 /* AppDelegate.swift in Sources */,
+				92269F4F28B15D0D00042549 /* CirclePaint.swift in Sources */,
 				92269F2D28B0FA4000042549 /* SceneDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
