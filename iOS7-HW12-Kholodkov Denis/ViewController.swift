@@ -33,7 +33,7 @@ class ViewController: UIViewController {
         let image = UIImage(systemName: "play")
         buttonPlay.setImage(image, for: .normal)
         buttonPlay.frame.size = CGSize(width: 40, height: 40)
-        buttonPlay.setPreferredSymbolConfiguration(UIImage.SymbolConfiguration(pointSize: 50, weight: UIImage.SymbolWeight.thin), forImageIn: .normal)
+        buttonPlay.setPreferredSymbolConfiguration(UIImage.SymbolConfiguration(pointSize: 50, weight: UIImage.SymbolWeight.heavy), forImageIn: .normal)
         buttonPlay.addTarget(self, action: #selector(playButtonAction), for: .touchUpInside)
         return buttonPlay
     }()
@@ -56,7 +56,7 @@ class ViewController: UIViewController {
 // показатель движения
         } else {
             timer.invalidate()
-            
+
         }
 
     }
