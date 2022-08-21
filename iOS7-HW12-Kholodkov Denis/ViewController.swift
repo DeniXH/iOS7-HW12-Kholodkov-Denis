@@ -10,9 +10,12 @@ import SnapKit
 
 class ViewController: UIViewController {
 
-    var circlePaint: CirclePaint!
+    var circlePaint = CirclePaint(frame: CGRect(x: 0,
+                                                y: 0,
+                                                width: ViewController.progressBarWidth,
+                                                height: ViewController.progressBarWidth))
 
-    private var isWorkTime = false
+    private var isWorkTime = true
     private var isStarted = false
     var timer = Timer()
 
@@ -35,6 +38,12 @@ class ViewController: UIViewController {
         buttonPlay.setPreferredSymbolConfiguration(UIImage.SymbolConfiguration(pointSize: 50, weight: UIImage.SymbolWeight.heavy), forImageIn: .normal)
         buttonPlay.addTarget(self, action: #selector(playButtonAction), for: .touchUpInside)
         return buttonPlay
+    }()
+
+    private lazy var progressContainer: UIView = {
+        let view = UIView()
+        view.backgroundColor = Colors.mainViewBackgroundColor
+        return view
     }()
 
 //MARK: Functions
@@ -70,10 +79,13 @@ class ViewController: UIViewController {
                 circlePaint.progressLayer.strokeEnd = presentation.strokeEnd
             }
             circlePaint.progressLayer.removeAnimation(forKey: "progressAnimation")
+            isStarted = false
+            buttonPlay.setImage(UIImage(systemName: "play"), for: .normal)
         }
     }
 
     // MARK: - Change interface
+
     func workTimeInterface() {
         circlePaint.createCircularPath(toneColor: Colors.workColor)
         buttonPlay.tintColor = UIColor(cgColor: Colors.workColor)
@@ -117,13 +129,7 @@ class ViewController: UIViewController {
             circlePaint.createCircularPath(toneColor: Colors.restColor)
             isStartedCheck()
         }
-    }
-
-    func setupCirclePaint() {
-        circlePaint = CirclePaint(frame: CGRect(x: 0,
-                                                y: 0,
-                                                width: ViewController.progressBarWidth,
-                                                height: ViewController.progressBarWidth))
+        labelTimer.text = timeFormat()
     }
 
     //MARK: Timer
@@ -144,33 +150,32 @@ class ViewController: UIViewController {
         labelTimer.text = timeFormat()
     }
 
-
+// MARK: - Setup Layout
     private func setupHierarchy() {
+        view.addSubview(progressContainer)
         view.addSubview(labelTimer)
-        view.addSubview(buttonPlay)
+        progressContainer.addSubview(circlePaint)
+        progressContainer.addSubview(buttonPlay)
+
     }
 
     private func setConstraints() {
-        labelTimer.snp.makeConstraints { make in
-            make.top.equalTo(view.safeAreaLayoutGuide.snp.top).offset(200)
-            make.centerX.equalTo(view)
-        }
+        
+        progressContainer.translatesAutoresizingMaskIntoConstraints = false
+        progressContainer.centerXAnchor.constraint(equalTo: view.safeAreaLayoutGuide.centerXAnchor).isActive = true
+        progressContainer.centerYAnchor.constraint(equalTo: view.safeAreaLayoutGuide.centerYAnchor, constant: -20).isActive = true
+        progressContainer.heightAnchor.constraint(equalToConstant: ViewController.progressBarWidth).isActive = true
+        progressContainer.widthAnchor.constraint(equalToConstant: ViewController.progressBarWidth).isActive = true
 
-        buttonPlay.snp.makeConstraints { make in
-            make.top.equalTo(labelTimer.snp.bottom).offset(40)
-            make.centerX.equalTo(view)
-//            make.height.equalTo(300)
-//            make.width.equalTo(300)
-        }
+        labelTimer.translatesAutoresizingMaskIntoConstraints = false
+        labelTimer.centerXAnchor.constraint(equalTo: progressContainer.centerXAnchor).isActive = true
+        labelTimer.centerYAnchor.constraint(equalTo: progressContainer.centerYAnchor, constant: -40).isActive = true
 
-//        imageCircle.snp.makeConstraints { make in
-//            make.centerX.equalTo(view.snp.centerX)
-//            make.centerY.equalTo(view.snp.centerY)
-//            make.height.equalTo(300)
-//            make.width.equalTo(300)
-//        }
+        buttonPlay.translatesAutoresizingMaskIntoConstraints = false
+        buttonPlay.centerXAnchor.constraint(equalTo: progressContainer.centerXAnchor).isActive = true
+        buttonPlay.centerYAnchor.constraint(equalTo: progressContainer.centerYAnchor, constant: ViewController.progressBarWidth / 5).isActive = true
+
     }
-
 }
 
 struct TimeModel {

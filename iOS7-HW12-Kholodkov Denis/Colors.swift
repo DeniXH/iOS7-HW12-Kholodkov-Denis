@@ -8,8 +8,8 @@
 import UIKit
 
 enum Colors {
-    static let mainViewBackgroundColor: UIColor = #colorLiteral(red: 0.05882352941, green: 0.1803921569, blue: 0.2470588235, alpha: 1)
-    static let settingViewBackgroundColor: UIColor = #colorLiteral(red: 0.08394366921, green: 0.2574272523, blue: 0.3525634107, alpha: 1)
+    static let mainViewBackgroundColor: UIColor = #colorLiteral(red: 1, green: 1, blue: 1, alpha: 1)
+    static let settingViewBackgroundColor: UIColor = #colorLiteral(red: 1, green: 1, blue: 1, alpha: 1)
     static let workColor: CGColor = #colorLiteral(red: 0.9411764741, green: 0.4980392158, blue: 0.3529411852, alpha: 1)
     static let restColor: CGColor = #colorLiteral(red: 0.5843137503, green: 0.8235294223, blue: 0.4196078479, alpha: 1)
 }
