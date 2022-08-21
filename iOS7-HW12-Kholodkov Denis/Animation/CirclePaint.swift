@@ -49,7 +49,6 @@ class CirclePaint: UIView {
     }
 
     func progressAnimation(duration: TimeInterval) {
-
         let circularProgressAnimation = CABasicAnimation(keyPath: "strokeEnd")
         //настройка времени
         circularProgressAnimation.duration = duration

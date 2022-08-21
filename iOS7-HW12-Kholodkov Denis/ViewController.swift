@@ -6,9 +6,8 @@
 //
 
 import UIKit
-import SnapKit
 
-class ViewController: UIViewController {
+final class ViewController: UIViewController {
 
     var circlePaint = CirclePaint(frame: CGRect(x: 0,
                                                 y: 0,
@@ -26,7 +25,7 @@ class ViewController: UIViewController {
     private lazy var labelTimer: UILabel = {
         let label = UILabel()
         label.text = "00:00"
-        label.font = UIFont.systemFont(ofSize: 50)
+        label.font = UIFont(name: "courier new", size: 50)
         return label
     }()
 
@@ -46,7 +45,7 @@ class ViewController: UIViewController {
         return view
     }()
 
-//MARK: Functions
+    //MARK: - Functions
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -86,17 +85,17 @@ class ViewController: UIViewController {
 
     // MARK: - Change interface
 
-    func workTimeInterface() {
+    private func workTimeInterface() {
         circlePaint.createCircularPath(toneColor: Colors.workColor)
         buttonPlay.tintColor = UIColor(cgColor: Colors.workColor)
     }
 
-    func restTimeInterface() {
+    private func restTimeInterface() {
         circlePaint.createCircularPath(toneColor: Colors.restColor)
         buttonPlay.tintColor = UIColor(cgColor: Colors.restColor)
     }
 
-    func changeInterface() {
+    private func changeInterface() {
         if isWorkTime {
             restTimeInterface()
             isWorkTime = false
@@ -104,22 +103,22 @@ class ViewController: UIViewController {
             workTimeInterface()
             isWorkTime = true
         }
-      resetTime()
+        resetTime()
     }
 
-    func timeFormat() -> String {
+    private func timeFormat() -> String {
         let min = time / 60 % 60
         let sec = time % 60
         return String(format: "%02i:%02i", min, sec)
     }
 
-    func isStartedCheck() {
+    private func isStartedCheck() {
         if isStarted {
             circlePaint.progressAnimation(duration: TimeInterval(time))
         }
     }
 
-    func resetTime() {
+    private func resetTime() {
         if isWorkTime {
             time = settingTime.timeModel.timeToWork
             circlePaint.createCircularPath(toneColor: Colors.workColor)
@@ -132,8 +131,9 @@ class ViewController: UIViewController {
         labelTimer.text = timeFormat()
     }
 
-    //MARK: Timer
-    func startTimer() {
+    // MARK: - Timer
+
+    private func startTimer() {
         timer = Timer.scheduledTimer(timeInterval: 1,
                                      target: self,
                                      selector: (#selector(updateTimer)),
@@ -141,7 +141,7 @@ class ViewController: UIViewController {
                                      repeats: true)
     }
 
-    @objc func updateTimer() {
+    @objc private func updateTimer() {
         guard time > 0 else {
             changeInterface()
             return
@@ -150,17 +150,16 @@ class ViewController: UIViewController {
         labelTimer.text = timeFormat()
     }
 
-// MARK: - Setup Layout
+    // MARK: - Setup Layout
+
     private func setupHierarchy() {
         view.addSubview(progressContainer)
         view.addSubview(labelTimer)
         progressContainer.addSubview(circlePaint)
         progressContainer.addSubview(buttonPlay)
-
     }
 
     private func setConstraints() {
-        
         progressContainer.translatesAutoresizingMaskIntoConstraints = false
         progressContainer.centerXAnchor.constraint(equalTo: view.safeAreaLayoutGuide.centerXAnchor).isActive = true
         progressContainer.centerYAnchor.constraint(equalTo: view.safeAreaLayoutGuide.centerYAnchor, constant: -20).isActive = true
@@ -174,7 +173,6 @@ class ViewController: UIViewController {
         buttonPlay.translatesAutoresizingMaskIntoConstraints = false
         buttonPlay.centerXAnchor.constraint(equalTo: progressContainer.centerXAnchor).isActive = true
         buttonPlay.centerYAnchor.constraint(equalTo: progressContainer.centerYAnchor, constant: ViewController.progressBarWidth / 5).isActive = true
-
     }
 }
 
@@ -185,7 +183,7 @@ struct TimeModel {
 
 class SettingTime {
 
-   var timeModel = TimeModel()
+    var timeModel = TimeModel()
 
     func setWorkTime(in time: Int) {
         timeModel.timeToWork = time
@@ -195,4 +193,3 @@ class SettingTime {
         timeModel.timeToRest = time
     }
 }
-
