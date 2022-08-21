@@ -27,12 +27,6 @@ class ViewController: UIViewController {
         return label
     }()
 
-//    private lazy var imageCircle: UIImageView = {
-//        let imageView = UIImageView()
-//        imageView.image = UIImage(named: "")
-//        return imageView
-//    }()
-
     private lazy var buttonPlay: UIButton = {
         let buttonPlay = UIButton()
         let image = UIImage(systemName: "play")
@@ -47,9 +41,20 @@ class ViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        view.backgroundColor = .white
+        setupView()
         setupHierarchy()
         setConstraints()
+        labelTimer.text = timeFormat()
+    }
+
+    private func setupView() {
+        view.backgroundColor = .white
+        settingTime.setWorkTime(in: 20)
+        settingTime.setRestTime(in: 5)
+        time = settingTime.timeModel.timeToWork
+
+        setupHierarchy()
+        circlePaint.createCircularPath(toneColor: Colors.workColor)
     }
 
     @objc private func playButtonAction() {
@@ -114,11 +119,29 @@ class ViewController: UIViewController {
         }
     }
 
+    func setupCirclePaint() {
+        circlePaint = CirclePaint(frame: CGRect(x: 0,
+                                                y: 0,
+                                                width: ViewController.progressBarWidth,
+                                                height: ViewController.progressBarWidth))
+    }
+
     //MARK: Timer
     func startTimer() {
-        timer =
+        timer = Timer.scheduledTimer(timeInterval: 1,
+                                     target: self,
+                                     selector: (#selector(updateTimer)),
+                                     userInfo: nil,
+                                     repeats: true)
     }
-    func updateTimer() {
+
+    @objc func updateTimer() {
+        guard time > 0 else {
+            changeInterface()
+            return
+        }
+        time -= 1
+        labelTimer.text = timeFormat()
     }
 
 
